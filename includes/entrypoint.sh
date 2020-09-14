@@ -12,7 +12,7 @@ for x in $(echo $DOMAIN | sed "s/,/ /g"); do
     if [[ ! -f /usr/share/nginx/certificates/$x/cert.crt ]]; then
         openssl genrsa -out /usr/share/nginx/certificates/$x/privkey.pem 4096
         openssl req -new -key /usr/share/nginx/certificates/$x/privkey.pem -out /usr/share/nginx/certificates/$x/cert.csr -nodes -subj \
-            "/C=PT/ST=World/L=World/O=${x:-ilhicas.com}/OU=Ilhicas/CN=${x:-ilhicas.com}/EMAIL=${EMAIL:-info@ilhicas.com}"
+            "/C=PT/ST=World/L=World/O=${x:-ilhicas.com}/OU=${ORGANIZATION:-Ilhicas}/CN=${x:-ilhicas.com}/EMAIL=${EMAIL:-info@ilhicas.com}"
         openssl x509 -req -days 365 -in /usr/share/nginx/certificates/$x/cert.csr -signkey /usr/share/nginx/certificates/$x/privkey.pem -out /usr/share/nginx/certificates/$x/fullchain.pem
     fi
 
